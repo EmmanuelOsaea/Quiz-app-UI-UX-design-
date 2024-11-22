@@ -138,7 +138,7 @@ function checkAnswer() {
       displayResult();
     }
   }
-}
+
 
 function displayResult() {
   quizContainer.style.display = 'none';
@@ -146,7 +146,29 @@ function displayResult() {
   retryButton.style.display = 'inline-block';
   showAnswerButton.style.display = 'inline-block';
   resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}!`;
+
+// Check if there are incorrect answers
+  if (incorrectAnswers.length === 0) {
+    // No incorrect answers
+    resultContainer.innerHTML += `<br><br>Incorrect Answers: 0`;
+  } else {
+    // List incorrect answers
+    let incorrectList = incorrectAnswers
+      .map(
+        (answer) =>
+          `Question: ${answer.question}<br>Your Answer: ${answer.userAnswer}<br>Correct Answer: ${answer.correctAnswer}`
+      )
+      .join("<br><br>");
+      
+    resultContainer.innerHTML += `<br><br>Incorrect Answers:<br>${incorrectList}`;
+  }
 }
+
+        
+          
+      
+    
+        }
 
 function retryQuiz() {
   currentQuestion = 0;
