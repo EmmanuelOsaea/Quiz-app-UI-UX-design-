@@ -189,3 +189,94 @@ retryButton.addEventListener('click', retryQuiz);
 showAnswerButton.addEventListener('click', showAnswer);
 
 displayQuestion();
+
+// Your existing script.js content
+
+// Function to display a question
+function displayQuestion() {
+  const questionData = quizData[currentQuestion];
+
+  const questionElement = document.createElement('div');
+  questionElement.className = 'question';
+  questionElement.innerHTML = questionData.question;
+
+  const optionsElement = document.createElement('div');
+  optionsElement.className = 'options';
+
+  const shuffledOptions = [...questionData.options];
+  shuffleArray(shuffledOptions);
+
+  for (let i = 0; i < shuffledOptions.length; i++) {
+    const option = document.createElement('label');
+    option.className = 'option';
+
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'quiz';
+    radio.value = shuffledOptions[i];
+
+    const optionText = document.createTextNode(shuffledOptions[i]);
+    option.appendChild(radio);
+    option.appendChild(optionText);
+    optionsElement.appendChild(option);
+  }
+
+  quizContainer.innerHTML = '';
+  quizContainer.appendChild(questionElement);
+  quizContainer.appendChild(optionsElement);
+
+  // Progress Update
+  const progressContainer = document.getElementById('progress');
+  progressContainer.innerHTML = `Question ${currentQuestion + 1} of ${quizData.length}`;
+
+  // Timer
+  let timeLeft = 10;
+  const timerElement = document.getElementById('timer');
+  clearInterval(window.timerInterval); // Ensure no overlap from previous intervals
+  window.timerInterval = setInterval(() => {
+    if (timeLeft > 0) {
+      timerElement.innerHTML = `Time left: ${timeLeft--} seconds`;
+    } else {
+      clearInterval(window.timerInterval);
+      checkAnswer(); // Auto-submit when time is up
+    }
+  }, 1000);
+}
+
+// Function to check the answer
+function checkAnswer() {
+  const selectedOption = document.querySelector('input[name="quiz"]:checked');
+  if (selectedOption) {
+    const answer = selectedOption.value;
+
+    // Apply dynamic CSS class for correct/incorrect answers
+    if (answer === quizData[currentQuestion].answer) {
+      score++;
+      selectedOption.parentElement.classList.add('correct');
+    } else {
+      selectedOption.parentElement.classList.add('incorrect');
+      incorrectAnswers.push({
+        question: quizData[currentQuestion].question,
+        incorrectAnswer: answer,
+        correctAnswer: quizData[currentQuestion].answer,
+      });
+    }
+
+    // Score Display Update
+    const scoreContainer = document.getElementById('score');
+    scoreContainer.innerHTML = `Score: ${score}`;
+
+    currentQuestion++;
+    selectedOption.checked = false;
+
+    if (currentQuestion < quizData.length) {
+      displayQuestion();
+    } else {
+      displayResult();
+    }
+  }
+}
+
+// Other existing functions: displayResult, retryQuiz, showAnswer, etc.
+
+displayQuestion(); // Initial call to load the first question
