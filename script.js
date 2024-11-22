@@ -12,7 +12,7 @@ const quizData = [
   {
     question: 'What country made the first orange juice?',
     options: ['Ecuador', 'France', 'USA', 'Japan'],
-    answer: 'USA ',
+    answer: 'USA',
   },
   {
     question: 'Who was the first man to fly in a hot air balloon?',
@@ -32,7 +32,7 @@ const quizData = [
   {
     question: 'What is the most sensitive part of the human body?',
     options: ['Lips', 'Neck', 'Skin', 'Fingertips'],
-    answer: 'Skin ',
+    answer: 'Skin',
   },
   {
     question: 'Who built the first ships in the world?',
@@ -40,7 +40,7 @@ const quizData = [
       'Romans',
       'Americans',
       'Egyptians',
-      'Chinese ',
+      'Chinese',
     ],
     answer: 'Egyptians',
   },
@@ -52,17 +52,17 @@ const quizData = [
   {
     question: 'What planet is the most similar to earth?',
     options: [
-      'Mars ',
+      'Mars',
       'Venus',
-      'Saturn ',
-      'Jupitar ',
+      'Saturn',
+      'Jupitar',
     ],
     answer: 'Venus',
   },
   {
     question: 'What animal flies, walks and swims?',
     options: ['Hen', 'Seal', 'Duck', 'Vulture'],
-    answer: 'Duck ',
+    answer: 'Duck',
   },
 ];
 
