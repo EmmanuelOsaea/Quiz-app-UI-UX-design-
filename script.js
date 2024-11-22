@@ -5,9 +5,9 @@ const quizData = [
     answer: 'Cyprus',
   },
   {
-    question: 'Who was the woman to bake a cake?',
-    options: [' ', ' ', ' ', ' '],x
-    answer: ' ',
+    question: 'Who was the first woman that flew an helicopter?',
+    options: ['Claire Simmons', 'Josephine Thompson', 'Sharon Bowie', 'Hanna Reitsch'],
+    answer: 'Hanna Reitsch',
   },
   {
     question: 'What country made the first orange juice?',
