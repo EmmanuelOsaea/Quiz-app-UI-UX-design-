@@ -230,7 +230,7 @@ function displayQuestion() {
   progressContainer.innerHTML = `Question ${currentQuestion + 1} of ${quizData.length}`;
 
   // Timer
-  let timeLeft = 10;
+  let timeLeft = 30;
   const timerElement = document.getElementById('timer');
   clearInterval(window.timerInterval); // Ensure no overlap from previous intervals
   window.timerInterval = setInterval(() => {
