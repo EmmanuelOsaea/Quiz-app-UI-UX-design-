@@ -27,6 +27,10 @@ body {
 
 h1 {
   text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
 }
 
 .question {
