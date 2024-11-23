@@ -17,6 +17,11 @@
   font-size: 36px; /* Make it stand out */
 }
 
+.quiz-app {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500; /* Medium weight for balance */
+  font-size: 28px; /* Slightly smaller size */
+  color: #555; /* Optional: Different color */
 
 
 body {
