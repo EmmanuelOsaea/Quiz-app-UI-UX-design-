@@ -13,7 +13,7 @@
 .fun-fact {
   font-family: 'Dancing Script', cursive;
   font-weight: 700; /* Bold */
-  color: #8a3324; /* Add some color (optional) */
+  color: #8a3324; 
   font-size: 36px; /* Make it stand out */
 }
 
@@ -21,7 +21,7 @@
   font-family: 'Poppins', sans-serif;
   font-weight: 500; /* Medium weight for balance */
   font-size: 28px; /* Slightly smaller size */
-  color: #555; /* Optional: Different color */
+  color: #555; 
   }
 
 body {
@@ -65,13 +65,13 @@ h1 {
 .button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #428bca;
+  background-color: #00563B;
   color: #fff;
   border: none;
   cursor: pointer;
   font-size: 16px;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s;
   margin-right: 10px;
 }
 
