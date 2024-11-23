@@ -14,13 +14,13 @@
   font-family: 'Dancing Script', cursive;
   font-weight: 700; /* Bold */
   color: #8a3324; 
-  font-size: 36px; /* Make it stand out */
+  font-size: 2.25rem; /* Make it stand out */
 }
 
 .quiz-app {
   font-family: 'Poppins', sans-serif;
   font-weight: 500; /* Medium weight for balance */
-  font-size: 28px; /* Slightly smaller size */
+  font-size: 1.75rem; /* Slightly smaller size */
   color: #555; 
   }
 
@@ -34,7 +34,7 @@ body {
 .container {
   width: 450px;
   padding: 20px;
-  margin-top: 80px;
+  margin-top: 5rem;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
@@ -50,16 +50,16 @@ h1 {
 
 .question {
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .options {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .option {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .button {
@@ -69,10 +69,10 @@ h1 {
   color: #fff;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
   border-radius: 4px;
   transition: background-color 0.2s;
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 
 .button:hover {
@@ -86,7 +86,7 @@ h1 {
 
   .result {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 1.25rem;
   font-weight: bold;
 }
 
@@ -96,10 +96,10 @@ h1 {
 
 /* New styles for additional elements */
 .progress, .timer, .score {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 0.6rem;
   color: #555;
 }
 
@@ -115,12 +115,12 @@ h1 {
 @media (max-width: 500px) {
   .container {
     width: 90%;
-    margin-top: 40px;
+    margin-top: 3rem;
   }
 
   .button {
     width: 100%;
-    margin: 5px 0;
+    margin: 0.3125rem 0;
     background-color: #00563B;
   }
 }
