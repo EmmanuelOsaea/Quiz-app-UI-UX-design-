@@ -6,7 +6,7 @@
 .dancing-script-<uniquifier> {
   font-family: "Dancing Script", cursive;
   font-optical-sizing: auto;
-  font-weight: <weight>;
+  font-weight: bold;
   font-style: normal;
 }
 body {
