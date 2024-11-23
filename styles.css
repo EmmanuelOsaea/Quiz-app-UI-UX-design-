@@ -65,7 +65,7 @@ h1 {
 .button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #00563B;
+  background-color: #000000;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -79,7 +79,12 @@ h1 {
   background-color: #3071a9;
 }
 
-.result {
+#submit {
+  background-color: #00563B;
+  color: #fff;
+}
+
+  .result {
   text-align: center;
   margin-top: 20px;
   font-weight: bold;
