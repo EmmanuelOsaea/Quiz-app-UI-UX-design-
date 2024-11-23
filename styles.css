@@ -9,6 +9,16 @@
   font-weight: bold;
   font-style: normal;
 }
+
+.fun-fact {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700; /* Bold */
+  color: #d9534f; /* Add some color (optional) */
+  font-size: 36px; /* Make it stand out */
+}
+
+
+
 body {
   font-family: 'Poppins', sans-serif;
   background: #301934;
