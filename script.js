@@ -71,10 +71,14 @@ const resultContainer = document.getElementById('result');
 const submitButton = document.getElementById('submit');
 const retryButton = document.getElementById('retry');
 const showAnswerButton = document.getElementById('showAnswer');
+const progressContainer = document.getElementById('progress');
+const scoreContainer = document.getElementById('score');
+const timerElement = document.getElementById('timer');
 
 let currentQuestion = 0;
 let score = 0;
 let incorrectAnswers = [];
+let timerInterval;
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -83,38 +87,42 @@ function shuffleArray(array) {
   }
 }
 
+
+function startTimer() {
+  let timeLeft = 30;
+  clearInterval(timerInterval); // Reset previous timer
+  timerInterval = setInterval(() => {
+    if (timeLeft > 0) {
+      timerElement.innerHTML = `Time left: ${timeLeft--} seconds`;
+    } else {
+      clearInterval(timerInterval);
+      checkAnswer(); // Auto-submit if time is up
+    }
+  }, 1000);
+}
+
 function displayQuestion() {
   const questionData = quizData[currentQuestion];
-
-  const questionElement = document.createElement('div');
-  questionElement.className = 'question';
-  questionElement.innerHTML = questionData.question;
-
-  const optionsElement = document.createElement('div');
-  optionsElement.className = 'options';
-
   const shuffledOptions = [...questionData.options];
   shuffleArray(shuffledOptions);
 
-  for (let i = 0; i < shuffledOptions.length; i++) {
-    const option = document.createElement('label');
-    option.className = 'option';
+  quizContainer.innerHTML = `
+    <div class="question">${questionData.question}</div>
+    <div class="options">
+      ${shuffledOptions
+        .map(
+          (option) => `
+          <label class="option">
+            <input type="radio" name="quiz" value="${option}">
+            ${option}
+          </label>`
+        )
+        .join('')}
+    </div>
+  `;
 
-    const radio = document.createElement('input');
-    radio.type = 'radio';
-    radio.name = 'quiz';
-    radio.value = shuffledOptions[i];
-
-    const optionText = document.createTextNode(shuffledOptions[i]);
-
-    option.appendChild(radio);
-    option.appendChild(optionText);
-    optionsElement.appendChild(option);
-  }
-
-  quizContainer.innerHTML = '';
-  quizContainer.appendChild(questionElement);
-  quizContainer.appendChild(optionsElement);
+  progressContainer.innerHTML = `Question ${currentQuestion + 1} of ${quizData.length}`;
+  startTimer();
 }
 
 function checkAnswer() {
@@ -126,49 +134,43 @@ function checkAnswer() {
     } else {
       incorrectAnswers.push({
         question: quizData[currentQuestion].question,
-        incorrectAnswer: answer,
+        userAnswer: answer,
         correctAnswer: quizData[currentQuestion].answer,
       });
     }
     currentQuestion++;
-    selectedOption.checked = false;
     if (currentQuestion < quizData.length) {
       displayQuestion();
     } else {
       displayResult();
     }
+  } else {
+    alert('Please select an answer before submitting!');
   }
-
+  scoreContainer.innerHTML = `Score: ${score}`;
+}
 
 function displayResult() {
+  clearInterval(timerInterval); // Stop timer
   quizContainer.style.display = 'none';
   submitButton.style.display = 'none';
   retryButton.style.display = 'inline-block';
   showAnswerButton.style.display = 'inline-block';
-  resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}!`;
 
-// Check if there are incorrect answers
-  if (incorrectAnswers.length === 0) {
-    // No incorrect answers
-    resultContainer.innerHTML += `<br><br>Incorrect Answers: 0`;
-  } else {
-    // List incorrect answers
-    let incorrectList = incorrectAnswers
-      .map(
-        (answer) =>
-          `Question: ${answer.question}<br>Your Answer: ${answer.userAnswer}<br>Correct Answer: ${answer.correctAnswer}`
-      )
-      .join("<br><br>");
-      
-    resultContainer.innerHTML += `<br><br>Incorrect Answers:<br>${incorrectList}`;
-  }
+  resultContainer.innerHTML = `
+    <p>You scored ${score} out of ${quizData.length}!</p>
+    ${
+      incorrectAnswers.length === 0
+        ? '<p>Incorrect Answers: 0</p>'
+        : `<p>Incorrect Answers:</p>${incorrectAnswers
+            .map(
+              (answer) =>
+                `<p>Question: ${answer.question}<br>Your Answer: ${answer.userAnswer}<br>Correct Answer: ${answer.correctAnswer}</p>`
+            )
+            .join('')}`
+    }
+  `;
 }
-
-        
-          
-      
-    
-        }
 
 function retryQuiz() {
   currentQuestion = 0;
@@ -188,21 +190,14 @@ function showAnswer() {
   retryButton.style.display = 'inline-block';
   showAnswerButton.style.display = 'none';
 
-  let incorrectAnswersHtml = '';
-  for (let i = 0; i < incorrectAnswers.length; i++) {
-    incorrectAnswersHtml += `
-      <p>
-        <strong>Question:</strong> ${incorrectAnswers[i].question}<br>
-        <strong>Your Answer:</strong> ${incorrectAnswers[i].incorrectAnswer}<br>
-        <strong>Correct Answer:</strong> ${incorrectAnswers[i].correctAnswer}
-      </p>
-    `;
-  }
-
   resultContainer.innerHTML = `
-    <p>You scored ${score} out of ${quizData.length}!</p>
-    <p>Incorrect Answers:</p>
-    ${incorrectAnswersHtml}
+    <p>Answers:</p>
+    ${quizData
+      .map(
+        (data) =>
+          `<p>Question: ${data.question}<br>Correct Answer: ${data.answer}</p>`
+      )
+      .join('')}
   `;
 }
 
@@ -212,93 +207,4 @@ showAnswerButton.addEventListener('click', showAnswer);
 
 displayQuestion();
 
-// Your existing script.js content
-
-// Function to display a question
-function displayQuestion() {
-  const questionData = quizData[currentQuestion];
-
-  const questionElement = document.createElement('div');
-  questionElement.className = 'question';
-  questionElement.innerHTML = questionData.question;
-
-  const optionsElement = document.createElement('div');
-  optionsElement.className = 'options';
-
-  const shuffledOptions = [...questionData.options];
-  shuffleArray(shuffledOptions);
-
-  for (let i = 0; i < shuffledOptions.length; i++) {
-    const option = document.createElement('label');
-    option.className = 'option';
-
-    const radio = document.createElement('input');
-    radio.type = 'radio';
-    radio.name = 'quiz';
-    radio.value = shuffledOptions[i];
-
-    const optionText = document.createTextNode(shuffledOptions[i]);
-    option.appendChild(radio);
-    option.appendChild(optionText);
-    optionsElement.appendChild(option);
-  }
-
-  quizContainer.innerHTML = '';
-  quizContainer.appendChild(questionElement);
-  quizContainer.appendChild(optionsElement);
-
-  // Progress Update
-  const progressContainer = document.getElementById('progress');
-  progressContainer.innerHTML = `Question ${currentQuestion + 1} of ${quizData.length}`;
-
-  // Timer
-  let timeLeft = 30;
-  const timerElement = document.getElementById('timer');
-  clearInterval(window.timerInterval); // Ensure no overlap from previous intervals
-  window.timerInterval = setInterval(() => {
-    if (timeLeft > 0) {
-      timerElement.innerHTML = `Time left: ${timeLeft--} seconds`;
-    } else {
-      clearInterval(window.timerInterval);
-      checkAnswer(); // Auto-submit when time is up
-    }
-  }, 1000);
-}
-
-// Function to check the answer
-function checkAnswer() {
-  const selectedOption = document.querySelector('input[name="quiz"]:checked');
-  if (selectedOption) {
-    const answer = selectedOption.value;
-
-    // Apply dynamic CSS class for correct/incorrect answers
-    if (answer === quizData[currentQuestion].answer) {
-      score++;
-      selectedOption.parentElement.classList.add('correct');
-    } else {
-      selectedOption.parentElement.classList.add('incorrect');
-      incorrectAnswers.push({
-        question: quizData[currentQuestion].question,
-        incorrectAnswer: answer,
-        correctAnswer: quizData[currentQuestion].answer,
-      });
-    }
-
-    // Score Display Update
-    const scoreContainer = document.getElementById('score');
-    scoreContainer.innerHTML = `Score: ${score}`;
-
-    currentQuestion++;
-    selectedOption.checked = false;
-
-    if (currentQuestion < quizData.length) {
-      displayQuestion();
-    } else {
-      displayResult();
-    }
-  }
-}
-
-// Other existing functions: displayResult, retryQuiz, showAnswer, etc.
-
-displayQuestion(); // Initial call to load the first question
+      
